@@ -1,4 +1,5 @@
 module.exports = {
+    //email config
     transporter: {
         host: 'smtp.gmail.com',
         port: 25,
@@ -13,5 +14,9 @@ module.exports = {
     },
     from: 'asianna0815@gmail.com', // sender address
     to: 'anna.hanh.hoang@gmail.com',
-    subject: 'portfolio contact form message'
+    subject: 'portfolio contact form message',
+
+    //captcha config
+    captchaURI: '',
+    captchaSecret: '',
 }

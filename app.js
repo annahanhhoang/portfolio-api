@@ -11,7 +11,7 @@ app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const config = require('./config/emailConfig.js')
+const config = require('./config/config.js')
 app.get('/', async (req, res) => {
     res.json("server up")
 })
@@ -36,9 +36,9 @@ app.post('/send-email', asyncHandler(async (req, res) => {
 
 app.get('/api/verify-captcha', asyncHandler(async (req, res) => {
     request({
-        uri: 'https://www.google.com/recaptcha/api/siteverify',
+        uri: config.captchaURI,
         qs: {
-            'secret': '6LeJnpsUAAAAAFElTm-78aKoKiCMMhrxr5Ghtumc',
+            'secret': config.captchaSecret,
             'response': req.query.response
         }
     }).pipe(res)
