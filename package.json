@@ -14,7 +14,8 @@
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "nodemailer": "^6.0.0",
-    "nodemon": "^1.18.10"
+    "nodemon": "^1.18.10",
+    "request": "^2.88.0"
   },
   "devDependencies": {
     "express-async-handler": "^1.1.4"

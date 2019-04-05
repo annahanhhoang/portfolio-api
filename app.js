@@ -4,6 +4,7 @@ const nodemon = require('nodemon')
 const nodeMailer = require('nodemailer')
 const asyncHandler = require('express-async-handler')
 const bodyParser = require('body-parser')
+const request = require('request')
 
 const app = express()
 app.use(cors())
@@ -25,14 +26,24 @@ app.post('/send-email', asyncHandler(async (req, res) => {
         text: req.body.message
     }
 
-    transporter.sendMail(mailOptions, (error, info) => {
+    transporter.sendMail(mailOptions, (error) => {
         if (error) {
             res.status(500).send({ error: 'Something failed! ' + error})
         }
-        console.log('Message %s sent: %s', info.messageId, info.response);
         res.json('Message sent successfully');
     });
 }))
+
+app.get('/api/verify-captcha', asyncHandler(async (req, res) => {
+    request({
+        uri: 'https://www.google.com/recaptcha/api/siteverify',
+        qs: {
+            'secret': '6LeJnpsUAAAAAFElTm-78aKoKiCMMhrxr5Ghtumc',
+            'response': req.query.response
+        }
+    }).pipe(res)
+}))
+
 
 app.get('/quit', function (req, res) {
     res.send('closing..');
